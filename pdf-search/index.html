@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>債券單張搜尋工具</title>
+
+  <!-- 手機版響應式 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- 🚫 告訴搜尋引擎不要收錄這個頁面（保密用途） -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+
+  <!-- 🎨 ======================= [CSS 區塊] ======================= -->
+  <style>
+    /* 設定整體頁面背景、字型、文字顏色 */
+    body {
+      font-family: "Segoe UI", "Noto Sans TC", system-ui, -apple-system, sans-serif;
+      background: #f7f9fb; /* 淺灰藍背景 */
+      color: #333;          /* 主要文字顏色 */
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 主要內容外框容器 */
+    .container {
+      max-width: 760px;                      /* 頁面寬度上限 */
+      margin: 80px auto;                     /* 垂直置中 */
+      background: #fff;                      /* 白底 */
+      border-radius: 16px;                   /* 圓角邊框 */
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);/* 柔和陰影 */
+      padding: 40px 48px;                    /* 內距 */
+    }
+
+    /* 標題樣式 */
+    h2 {
+      text-align: center;
+      color: #1a365d;
+      font-size: 1.6em;
+      margin-bottom: 32px;
+    }
+
+    /* 搜尋列（輸入框＋按鈕）的橫向排列 */
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* 搜尋框的外觀 */
+    input {
+      flex: 1;                     /* 讓輸入框自動佔滿寬度 */
+      padding: 12px 16px;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      transition: all 0.25s ease;  /* 聚焦時有動畫 */
+    }
+
+    /* 當使用者點選輸入框時的效果（藍色外框） */
+    input:focus {
+      border-color: #3182ce;
+      box-shadow: 0 0 0 3px rgba(49,130,206,0.2);
+      outline: none;
+    }
+
+    /* 搜尋按鈕外觀 */
+    button {
+      padding: 11px 25px;
+      background: #2b6cb0;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    button:hover {
+      background: #093974; /* 滑鼠移上去會變深色 */
+    }
+
+    /* 顯示狀態資訊（例如：資料載入中、找到幾筆） */
+    .status {
+      margin-top: 16px;
+      color: #555;
+      font-size: 0.95em;
+    }
+
+    /* 搜尋結果的卡片樣式 */
+    .result {
+      background: #f9fafb;
+      margin-top: 16px;
+      padding: 14px 18px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      transition: background 0.2s ease;
+    }
+
+    .result:hover {
+      background: #edf2f7; /* 滑鼠移上去變亮一點 */
+    }
+
+    /* 頁尾樣式 */
+    footer {
+      text-align: center;
+      color: #718096;
+      font-size: 0.85em;
+      margin-top: 48px;
+    }
+
+    /* 📱 手機版響應式：畫面窄時自動縮排 */
+    @media (max-width: 600px) {
+      .container {
+        margin: 32px 16px;
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 主標題 -->
+    <h2>🔍 債券單張搜尋工具</h2>
+
+    <!-- 搜尋列：輸入框 + 按鈕 -->
+    <div class="row">
+      <!-- 輸入框 -->
+      <input id="search" placeholder="輸入標的名稱或代號，例如：3M、MMM…" />
+      <!-- 按鈕（加上 type="button" 避免被當作 submit） -->
+      <button id="btn" type="button">搜尋</button>
+    </div>
+
+    <!-- 顯示狀態區（例如「資料載入完成」或「共找到 X 筆」） -->
+    <div class="status" id="status">正在載入資料…</div>
+
+    <!-- 搜尋結果顯示區 -->
+    <div id="results"></div>
+
+    <!-- 頁尾 -->
+    <footer>© 台新證券 B2B Team 製作</footer>
+  </div>
+
+  <!-- ⚙️ ======================= [JavaScript 區塊] ======================= -->
+  <script>
+    let data = [];
+    let loaded = false;
+
+    function renderList(list, message) {
+      const box = document.getElementById('results');
+      const status = document.getElementById('status');
+
+      if (!list || list.length === 0) {
+        status.textContent = message || '— 沒有找到結果 —';
+        box.innerHTML = '<p>— 沒有找到結果 —</p>';
+        return;
+      }
+
+      status.textContent = message || `共 ${list.length} 筆。`;
+      box.innerHTML = list.map(r => `
+        <div class="result">
+          <b>${r.name || '(未命名)'}</b><br>
+          📄 <a href="${r.url || '#'}" target="_blank" rel="noopener noreferrer">點此開啟檔案</a>
+        </div>
+      `).join('');
+    }
+
+    async function loadData() {
+      // 只嘗試讀取 index.json；若失敗，提示改用 http/https 伺服器
+      const res = await fetch('index.json', { cache: 'no-store' });
+      if (!res.ok) {
+        throw new Error(`找不到 index.json（HTTP ${res.status}）。請確認檔案位置，並透過 http/https 伺服器存取。`);
+      }
+      const d = await res.json();
+      return normalizeData(d);
+    }
+
+    function normalizeData(d) {
+      const arr = Array.isArray(d) ? d : [];
+      const out = arr.map(x => ({
+        name: (x && x.name) || '',
+        url: (x && x.url) || '#',
+        alias: Array.isArray(x?.alias) ? x.alias : []
+      }));
+      out.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hant'));
+      return out;
+    }
+
+    function searchNow() {
+      const input = document.getElementById('search');
+      const q = (input.value || '').trim().toLowerCase();
+
+      if (!loaded) {
+        renderList([], '資料未載入。');
+        return;
+      }
+
+      if (!q) {
+        renderList(data, `目前顯示全部（${data.length} 筆）`);
+        return;
+      }
+
+      const res = data.filter(x => {
+        const name = (x.name || '').toLowerCase();
+        const aliases = (x.alias || []).map(a => (a || '').toLowerCase());
+        return name.includes(q) || aliases.some(a => a.includes(q));
+      });
+
+      renderList(res, `根據搜尋，共有 ${res.length} 筆符合。`);
+    }
+
+    // 綁定事件
+    document.getElementById('btn').addEventListener('click', searchNow);
+    document.getElementById('search').addEventListener('keydown', e => {
+      if (e.key === 'Enter') searchNow();
+    });
+    document.getElementById('search').addEventListener('input', e => {
+      if (e.target.value.trim() === '' && loaded) {
+        renderList(data, `目前顯示全部（${data.length} 筆）`);
+      }
+    });
+
+    // 支援 ?q=
+    const params = new URLSearchParams(location.search);
+    const preset = params.get('q');
+    if (preset) {
+      // 直接使用 get() 的值（已解碼）
+      document.getElementById('search').value = preset;
+    }
+
+    // 啟動：載入資料 → 初始渲染（全部） → 若有 ?q= 再做一次搜尋
+    (async () => {
+      const status = document.getElementById('status');
+      try {
+        data = await loadData();
+        loaded = true;
+        status.textContent = `資料載入完成（共 ${data.length} 筆）。`;
+        renderList(data, `目前顯示全部（${data.length} 筆）`);
+        if (preset) searchNow();
+      } catch (err) {
+        loaded = false;
+        console.error(err);
+        status.textContent = `❌ 資料載入失敗：${err.message}`;
+        document.getElementById('results').innerHTML =
+          '<p>請確認 index.json 位置/格式，並以 http/https 伺服器開啟此頁面。</p>';
+      }
+    })();
+  </script>
+</body>
+</html>

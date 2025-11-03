@@ -1,0 +1,77 @@
+[
+  {
+    "name": "MMM_3M公司_3M Company",
+    "alias": ["ET4W_ET7Q_ET8A_ETBC_ETBR"],
+    "url": "https://files.tssb2bserviceteam.com/MMM_3M%E5%85%AC%E5%8F%B8_3M%20Company.jpg"
+  },
+  {
+    "name": "ABT_亞培_Abbott Laboratories",
+    "alias": ["ETCH_ETHG"],
+    "url": "https://files.tssb2bserviceteam.com/ABT_%E4%BA%9E%E5%9F%B9_Abbott%20Laboratories.jpg"
+  },
+  {
+    "name": "T_美國國庫債券_United States of America",
+    "alias": ["ET1H_ET1Z_ET2A_ET9G_ETAB_ETCD_ETHH_ETHK_ETJH"],
+    "url": "https://files.tssb2bserviceteam.com/T_%E7%BE%8E%E5%9C%8B%E5%9C%8B%E5%BA%AB%E5%82%B5%E5%88%B8_United%20States%20of%20America.png"
+  },
+  {
+    "name": "WMT_沃爾瑪公司_Walmart Inc",
+    "alias": ["ETJ6_ET6M"],
+    "url": "https://files.tssb2bserviceteam.com/WMT_%E6%B2%83%E7%88%BE%E7%91%AA%E5%85%AC%E5%8F%B8_Walmart%20Inc.png"
+  },  
+  {
+    "name": "UNH_聯合健康集團公司_UnitedHealth Group Inc",
+    "alias": ["ET4X_ET5F_ET9R"],
+    "url": "https://files.tssb2bserviceteam.com/UNH_%E8%81%AF%E5%90%88%E5%81%A5%E5%BA%B7%E9%9B%86%E5%9C%98%E5%85%AC%E5%8F%B8_UnitedHealth%20Group%20Inc.png"
+  },
+  {
+    "name": "IBM_國際商業機器公司_International Business Machine",
+    "alias": ["ET5P_ETAA"],
+    "url": "https://files.tssb2bserviceteam.com/IBM_%E5%9C%8B%E9%9A%9B%E5%95%86%E6%A5%AD%E6%A9%9F%E5%99%A8%E5%85%AC%E5%8F%B8_International%20Business%20Machine.png"
+  },  
+  {
+    "name": "KSA_沙烏地阿拉伯王國_Kingdom of Saudi Arabia",
+    "alias": ["ETV2_ET5M_ETBW_ETHJ"],
+    "url": "https://files.tssb2bserviceteam.com/KSA_%E6%B2%99%E7%83%8F%E5%9C%B0%E9%98%BF%E6%8B%89%E4%BC%AF%E7%8E%8B%E5%9C%8B_Kingdom%20of%20Saudi%20Arabia.png"
+  },
+  {
+    "name": "ORCL_甲骨文公司_Oracle Corp",
+    "alias": ["ET4H_ET3L_ET7W_ETBT"],
+    "url": "https://files.tssb2bserviceteam.com/ORCL_%E7%94%B2%E9%AA%A8%E6%96%87%E5%85%AC%E5%8F%B8_Oracle%20Corp.png"
+  },  
+  {
+    "name": "VZ_威瑞森電信公司_Verizon Communications Inc",
+    "alias": ["ETJ4_ETK5_ETT5_ETU8_ET2Q_ET2S_ET2T_ET2G_ET7L_ET7T_ETHA"],
+    "url": "https://files.tssb2bserviceteam.com/VZ_%E5%A8%81%E7%91%9E%E6%A3%AE%E9%9B%BB%E4%BF%A1%E5%85%AC%E5%8F%B8_Verizon%20Communications%20Inc.png"
+  },
+  {
+    "name": "META_Meta平台公司_Meta Platforms Inc",
+    "alias": ["ET9J_ET9K_ET9N"],
+    "url": "https://files.tssb2bserviceteam.com/META_Meta%E5%B9%B3%E5%8F%B0%E5%85%AC%E5%8F%B8_Meta%20Platforms%20Inc.png"
+  },  
+  {
+    "name": "AMZN_亞馬遜公司_Amazon.com Inc",
+    "alias": ["ETS6_ET6Z_ET9Q"],
+    "url": "https://files.tssb2bserviceteam.com/AMZN_%E4%BA%9E%E9%A6%AC%E9%81%9C%E5%85%AC%E5%8F%B8_Amazon.com%20Inc.png"
+  },
+  {
+    "name": "MSFT_微軟_Microsoft Corp",
+    "alias": ["ETH4_ETK8_ET7A_ET8X_ETCF"],
+    "url": "https://files.tssb2bserviceteam.com/MSFT_%E5%BE%AE%E8%BB%9F_Microsoft%20Corp.png"
+  },  
+  {
+    "name": "DIS_華特迪士尼公司_Walt Disney Co/The",
+    "alias": ["ETH5_ET5Y_ET7P_ET7R_ET7S_ETCG"],
+    "url": "https://files.tssb2bserviceteam.com/DIS_%E8%8F%AF%E7%89%B9%E8%BF%AA%E5%A3%AB%E5%B0%BC%E5%85%AC%E5%8F%B8_Walt%20Disney%20Co.png"
+  },
+  {
+    "name": "BRK_波克夏海瑟威公司_Berkshire Hathaway Inc",
+    "alias": ["ETE9_ET3C_ET9F_ETBG"],
+    "url": "https://files.tssb2bserviceteam.com/BRK_%E6%B3%A2%E5%85%8B%E5%A4%8F%E6%B5%B7%E7%91%9F%E5%A8%81%E5%85%AC%E5%8F%B8_Berkshire%20Hathaway%20Inc.png"
+  },
+  {
+    "name": "PFE_輝瑞大藥廠股份有限公司_Pfizer Inc",
+    "alias": ["ETN9_ETP5_ETG6_ET2Z_ET5W_ETAX"],
+    "url": "https://files.tssb2bserviceteam.com/PFE_%E8%BC%9D%E7%91%9E%E5%A4%A7%E8%97%A5%E5%BB%A0%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8_Pfizer%20Inc.png"
+  } 
+]
